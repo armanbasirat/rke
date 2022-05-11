@@ -1,0 +1,274 @@
+# If you intended to deploy Kubernetes in an air-gapped environment,
+# please consult the documentation on how to configure custom RKE images.
+nodes:
+- address: 192.168.112.10
+  port: "22"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: "rke-master-1"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: "" 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.112.11
+  port: "22"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: "rke-master-2"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.112.12
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: "rke-worker-1"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.112.13
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: "rke-worker-2"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.112.14
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: "rke-worker-3"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.112.15
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: "rke-worker-4"
+  user: rke
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: 
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+services:
+  etcd:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+    external_urls: []
+    ca_cert: ""
+    cert: ""
+    key: ""
+    path: ""
+    uid: 0
+    gid: 0
+    snapshot: null
+    retention: ""
+    creation: ""
+    backup_config: null
+  kube-api:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+    service_cluster_ip_range: 10.43.0.0/16
+    service_node_port_range: ""
+    pod_security_policy: false
+    always_pull_images: false
+    secrets_encryption_config: null
+    audit_log: null
+    admission_configuration: null
+    event_rate_limit: null
+  kube-controller:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+    cluster_cidr: 10.42.0.0/16
+    service_cluster_ip_range: 10.43.0.0/16
+  scheduler:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+  kubelet:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+    cluster_domain: cluster.local
+    infra_container_image: ""
+    cluster_dns_server: 10.43.0.10
+    fail_swap_on: false
+    generate_serving_certificate: false
+  kubeproxy:
+    image: ""
+    extra_args: {}
+    extra_binds: []
+    extra_env: []
+    win_extra_args: {}
+    win_extra_binds: []
+    win_extra_env: []
+network:
+  plugin: calico
+  options: {}
+  mtu: 0
+  node_selector: {}
+  update_strategy: null
+  tolerations: []
+authentication:
+  strategy: x509
+  sans: []
+  webhook: null
+addons: ""
+addons_include: []
+system_images:
+  etcd: 
+  alpine: 
+  nginx_proxy: 
+  cert_downloader: 
+  kubernetes_services_sidecar: 
+  kubedns: 
+  dnsmasq: 
+  kubedns_sidecar: 
+  kubedns_autoscaler: 
+  coredns: 
+  coredns_autoscaler: 
+  nodelocal: 
+  kubernetes: 
+  flannel: 
+  flannel_cni: 
+  calico_node: 
+  calico_cni: 
+  calico_controllers: 
+  calico_ctl: 
+  calico_flexvol: 
+  canal_node: 
+  canal_cni: 
+  canal_controllers: 
+  canal_flannel: 
+  canal_flexvol: 
+  weave_node: 
+  weave_cni: 
+  pod_infra_container: 
+  ingress: 
+  ingress_backend: 
+  ingress_webhook: 
+  metrics_server: 
+  windows_pod_infra_container: 
+  aci_cni_deploy_container: 
+  aci_host_container: 
+  aci_opflex_container: 
+  aci_mcast_container: 
+  aci_ovs_container: 
+  aci_controller_container: 
+  aci_gbp_server_container: 
+  aci_opflex_server_container: 
+ssh_key_path: ~/.ssh/id_rsa
+ssh_cert_path: ""
+ssh_agent_auth: false
+authorization:
+  mode: rbac
+  options: {}
+ignore_docker_version: null
+enable_cri_dockerd: null
+kubernetes_version: "v1.22.5-rancher1-1"
+private_registries: []
+ingress:
+  provider: ""
+  options: {}
+  node_selector: {}
+  extra_args: {}
+  dns_policy: ""
+  extra_envs: []
+  extra_volumes: []
+  extra_volume_mounts: []
+  update_strategy: null
+  http_port: 0
+  https_port: 0
+  network_mode: ""
+  tolerations: []
+  default_backend: null
+  default_http_backend_priority_class_name: ""
+  nginx_ingress_controller_priority_class_name: ""
+  default_ingress_class: null
+cluster_name: "hq-rke-cluster-1"
+cloud_provider:
+prefix_path: ""
+win_prefix_path: ""
+addon_job_timeout: 0
+bastion_host:
+  address: ""
+  port: ""
+  user: ""
+  ssh_key: ""
+  ssh_key_path: ""
+  ssh_cert: ""
+  ssh_cert_path: ""
+  ignore_proxy_env_vars: false
+monitoring:
+  provider: ""
+  options: {}
+  node_selector: {}
+  update_strategy: null
+  replicas: null
+  tolerations: []
+  metrics_server_priority_class_name: ""
+restore:
+  restore: false
+  snapshot_name: ""
+rotate_encryption_key: false
+dns: null

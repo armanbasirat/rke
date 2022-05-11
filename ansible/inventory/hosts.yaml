@@ -1,0 +1,25 @@
+all:
+  children:
+    servers:
+      children:
+        rke-hosts:
+          vars:
+            ansible_user: ubuntu
+            ansible_password: ubuntu
+            ansible_become: yes
+            ansible_become_method: su
+            ansible_become_user: root
+            ansible_become_password: ubuntu            
+          hosts:
+            rke-master-1:
+              ansible_host: 192.168.112.10
+            rke-master-2:
+              ansible_host: 192.168.112.11
+            rke-worker-1:
+              ansible_host: 192.168.112.12
+            rke-worker-2:
+              ansible_host: 192.168.112.13
+            rke-worker-3:
+              ansible_host: 192.168.112.14
+            rke-worker-4:
+              ansible_host: 192.168.112.15         
