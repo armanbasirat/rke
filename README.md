@@ -617,13 +617,13 @@ rotate_encryption_key: false
 dns: null
 ```
 
-### Step 9: Deploy cluster
+### Step 10: Deploy cluster
 
 ```bash
 rke up
 ```
 
-### Step 10: Accessing your cluster
+### Step 11: Accessing your cluster
 
 ```bash
 export KUBECONFIG=$PWD/kube_config_cluster.yml
