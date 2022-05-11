@@ -1,4 +1,4 @@
-## Setup kubernetes cluster with rancher RKE
+## Setup kubernetes cluster with RKE
 
 
 
