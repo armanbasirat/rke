@@ -7,7 +7,7 @@
 1- Install kubectl
 
 ```bash
-curl -LO https://storage.googleapis.com/kubernetes-release/release/'curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt'/bin/linux/amd64/kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
@@ -319,13 +319,13 @@ rke config --system-images --all --list-version > rancher-images.txt
 3- Log into your private registry if required
 
 ```bash
-docker login <registery.yourdomain.com:port>
+docker login registry.omdgrp.ir
 ```
 
 4- Use rancher-load-images.sh to extract, tag and push rancher-images.txt and rancher-images.tar.gz to your private registry
 
 ```bash
-./rancher-load-images.sh --image-list ./rancher-images.txt --registry <registery.yourdomain.com:port>
+./rancher-load-images.sh --image-list ./rancher-images.txt --registry registry.omdgrp.ir
 ```
 
 

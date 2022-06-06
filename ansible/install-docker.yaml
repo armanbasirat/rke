@@ -1,5 +1,5 @@
 ---
-- hosts: rke-hosts
+- hosts: k8s-hosts
   become: yes
   vars:
     ansible_user: rke
@@ -31,7 +31,7 @@
 
     - name: Add apt repository for stable version
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
         state: present
 
     - name: Install docker

@@ -1,6 +1,6 @@
 ---
 - name: Disable swap and load kernel modules
-  hosts: rke-hosts
+  hosts: k8s-hosts
   tasks:
     - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
       shell: |
@@ -18,7 +18,7 @@
         sysctl_set: yes
         state: present
         reload: yes
-      with_items:
-        - {key: net.bridge.bridge-nf-call-ip6tables, value: 1}
+      with_items:        
         - {key: net.bridge.bridge-nf-call-iptables,  value: 1}
+        - {key: net.bridge.bridge-nf-call-ip6tables, value: 1}
         - {key: net.ipv4.ip_forward,  value: 1}

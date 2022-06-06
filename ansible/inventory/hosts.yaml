@@ -2,7 +2,7 @@ all:
   children:
     servers:
       children:
-        rke-hosts:
+        k8s-hosts:
           vars:
             ansible_user: ubuntu
             ansible_password: ubuntu
@@ -11,15 +11,15 @@ all:
             ansible_become_user: root
             ansible_become_password: ubuntu            
           hosts:
-            rke-master-1:
+            RKM1:
               ansible_host: 192.168.112.10
-            rke-master-2:
+            RKM2:
               ansible_host: 192.168.112.11
-            rke-worker-1:
+            RKW1:
               ansible_host: 192.168.112.12
-            rke-worker-2:
+            RKW2:
               ansible_host: 192.168.112.13
-            rke-worker-3:
+            RKW3:
               ansible_host: 192.168.112.14
-            rke-worker-4:
+            RKW4:
               ansible_host: 192.168.112.15         

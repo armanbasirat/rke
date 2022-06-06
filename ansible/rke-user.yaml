@@ -1,6 +1,6 @@
 ---
 - name: Create rke user with passwordless sudo
-  hosts: rke-hosts
+  hosts: k8s-hosts
   tasks:
     - name: Create rke user
       user:
