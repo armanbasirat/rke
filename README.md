@@ -39,20 +39,31 @@ rke --version
 
 #### Nodes hostname and IP address
 
-- rke-master-1 (192.168.112.10)
-- rke-master-2 (192.168.112.11)
-- rke-worker-1 (192.168.112.12)
-- rke-worker-2 (192.168.112.13)
-- rke-worker-3 (192.168.112.14)
-- rke-worker-4 (192.168.112.15)
+- rkm1 (192.168.112.10)
+- rkm1 (192.168.112.11)
+- rkw1 (192.168.112.12)
+- rkw2 (192.168.112.13)
 
 
-### Step 1: Update all nodes os
+```mermaid
+graph TD
+A[<br>rkm1<br><br>ip: 192.168.112.10<br>role: control plane, etcd<br><br><br><br>-api-server<br>-etcd<br>-controller-manager<br>-scheduler<br>-kubelet<br>-kube-proxy<br>-container runtime<br><br>]
+B[<br>rkm1<br><br>ip: 192.168.112.11<br>role: control plane, etcd<br><br><br><br>-api-server<br>-etcd<br>-controller-manager<br>-scheduler<br>-kubelet<br>-kube-proxy<br>-container runtime<br><br>]
+C[<br>rkw1<br><br>ip: 192.168.112.12<br>role: worker<br><br><br><br>-kubelet<br>-kube-proxy<br>-container runtime<br><br><br><br><br><br>]
+D[<br>rkw1<br><br>ip: 192.168.112.13<br>role: worker<br><br><br><br>-kubelet<br>-kube-proxy<br>-container runtime<br><br><br><br><br><br>]
+```
+```mermaid
+graph TD
+E[<br>workstation machine<br><br><br><br>-rke<br>-kubectl<br><br>]
+```
+
+
+
+### Step 1: Update all nodes
 
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
-sudo reboot
 ```
 
 ### Step 2: Create rke user with passwordless sudo
@@ -106,7 +117,7 @@ rke  ALL=(ALL:ALL) NOPASSWD: ALL
 3- Copy your ssh public key to the user’s ~/.ssh/authorized_keys file
 
 ```bash
-for i in rke-master-1 rke-master-2 rke-worker-1 rke-worker-2 rke-worker-3; do
+for i in rkm1 rkm2 rkw1 rkw2; do
   ssh-copy-id rke@$i
 done
 ```
@@ -236,7 +247,7 @@ sudo sysctl --system
 
     - name: Add apt repository for stable version
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
         state: present
 
     - name: Install Docker
@@ -321,7 +332,7 @@ nodes:
   role:
   - controlplane
   - etcd
-  hostname_override: "rke-master-1"
+  hostname_override: "rkm1"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -336,7 +347,7 @@ nodes:
   role:
   - controlplane
   - etcd
-  hostname_override: "rke-master-2"
+  hostname_override: "rkm2"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -350,7 +361,7 @@ nodes:
   internal_address: ""
   role:
   - worker
-  hostname_override: "rke-worker-1"
+  hostname_override: "rkw1"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -364,35 +375,7 @@ nodes:
   internal_address: ""
   role:
   - worker
-  hostname_override: "rke-worker-2"
-  user: rke
-  docker_socket: /var/run/docker.sock
-  ssh_key: ""
-  ssh_key_path: 
-  ssh_cert: ""
-  ssh_cert_path: ""
-  labels: {}
-  taints: []
-- address: 192.168.112.14
-  port: "22"
-  internal_address: ""
-  role:
-  - worker
-  hostname_override: "rke-worker-3"
-  user: rke
-  docker_socket: /var/run/docker.sock
-  ssh_key: ""
-  ssh_key_path: 
-  ssh_cert: ""
-  ssh_cert_path: ""
-  labels: {}
-  taints: []
-- address: 192.168.112.15
-  port: "22"
-  internal_address: ""
-  role:
-  - worker
-  hostname_override: "rke-worker-4"
+  hostname_override: "rkw2"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""

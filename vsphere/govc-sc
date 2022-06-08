@@ -1,14 +1,14 @@
 #!/bin/bash
 
-export GOVC_USERNAME='a.basirat@omidgroup.local'
+export GOVC_USERNAME=''
 export GOVC_INSECURE=1
-export GOVC_PASSWORD='San@Arsin@2013@@@'
-export GOVC_URL='192.168.100.25'
-DATACENTER='Omid Datacenter'
-FOLDER='RKE'
+export GOVC_PASSWORD=''
+export GOVC_URL=''
+DATACENTER=''
+FOLDER=''
 # In my case I'm using a prefix for the VM's, so grep'ing is necessary.
 # You can remove it if the folder you are using only contains the machines you need.
-VM_PREFIX='rke'
+VM_PREFIX=''
 IFS=$'\n'
 for vm in $(govc ls "/$DATACENTER/vm/$FOLDER" | grep $VM_PREFIX); do
   MACHINE_INFO=$(govc vm.info -json -dc=$DATACENTER -vm.ipath="/$vm" -e=true)
