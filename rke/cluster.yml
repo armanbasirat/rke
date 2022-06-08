@@ -7,7 +7,7 @@ nodes:
   role:
   - controlplane
   - etcd
-  hostname_override: "rke-master-1"
+  hostname_override: "rkm1"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -22,7 +22,7 @@ nodes:
   role:
   - controlplane
   - etcd
-  hostname_override: "rke-master-2"
+  hostname_override: "rkm2"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -36,7 +36,7 @@ nodes:
   internal_address: ""
   role:
   - worker
-  hostname_override: "rke-worker-1"
+  hostname_override: "rkw1"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -50,35 +50,7 @@ nodes:
   internal_address: ""
   role:
   - worker
-  hostname_override: "rke-worker-2"
-  user: rke
-  docker_socket: /var/run/docker.sock
-  ssh_key: ""
-  ssh_key_path: 
-  ssh_cert: ""
-  ssh_cert_path: ""
-  labels: {}
-  taints: []
-- address: 192.168.112.14
-  port: "22"
-  internal_address: ""
-  role:
-  - worker
-  hostname_override: "rke-worker-3"
-  user: rke
-  docker_socket: /var/run/docker.sock
-  ssh_key: ""
-  ssh_key_path: 
-  ssh_cert: ""
-  ssh_cert_path: ""
-  labels: {}
-  taints: []
-- address: 192.168.112.15
-  port: "22"
-  internal_address: ""
-  role:
-  - worker
-  hostname_override: "rke-worker-4"
+  hostname_override: "rkw2"
   user: rke
   docker_socket: /var/run/docker.sock
   ssh_key: ""
