@@ -16,7 +16,7 @@ kubectl version --client
 2- Install rke Binary
 
 ```bash
-curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep amd64 | cut -d '"' -f 4 | wget -qi -
+curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep amd64 | cut -d '"' -f 4 | wget -i -
 chmod +x rke_linux-amd64
 sudo mv rke_linux-amd64 /usr/local/bin/rke
 rke --version
@@ -27,7 +27,7 @@ rke --version
 
 #### We have 
 
-- Two master nodes that have etcd and control plane role
+- Two master nodes that have control plane and etcd role
 - Two worker nodes
 
 
