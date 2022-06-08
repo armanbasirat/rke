@@ -73,7 +73,7 @@ sudo apt-get upgrade
 ```bash
 ---
 - name: Create rke user with passwordless sudo
-  hosts: rke-hosts
+  hosts: k8s-hosts
   tasks:
     - name: Add rke user
       user:
@@ -129,7 +129,7 @@ done
 ```bash
 ---
 - name: Load RKE kernel modules
-  hosts: rke-hosts
+  hosts: k8s-hosts
   vars:
     kernel_modules:
       - overlay
@@ -162,7 +162,7 @@ done
 ```bash
 ---
 - name: Disable swap and modify sysctl entries
-  hosts: rke-hosts
+  hosts: k8s-hosts
   tasks:
     - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
       shell: |
@@ -215,7 +215,7 @@ sudo sysctl --system
 
 ```bash
 ---
-- hosts: rke-hosts
+- hosts: k8s-hosts
   become: yes
   vars:
     ansible_user: rke
