@@ -28,7 +28,7 @@ rke --version
 #### We have 
 
 - Two master nodes that have etcd and control plane role
-- Four worker nodes
+- Two worker nodes
 
 
 #### VM hardware specification
