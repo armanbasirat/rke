@@ -22,6 +22,11 @@ sudo mv rke_linux-amd64 /usr/local/bin/rke
 rke --version
 ```
 
+3- Generate SSH key pair
+
+```bash
+ssh-keygen
+```
 
 ### Prepare cluster nodes
 
@@ -98,6 +103,13 @@ sudo apt-get upgrade
         key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 ```
 
+
+#### Run Ansible Playbook
+
+```bash
+ansible-playbook -i inventory rke-user.yaml
+```
+
 #### Manual way
 
 1- Create rke user
@@ -143,6 +155,12 @@ done
       with_items: "{{ kernel_modules }}"
 ```
 
+#### Run Ansible Playbook
+
+```bash
+ansible-playbook -i inventory kernel-module.yaml
+```
+
 #### Manual way
 
 ```bash
@@ -185,6 +203,13 @@ done
         - {key: net.bridge.bridge-nf-call-iptables,  value: 1}
         - {key: net.ipv4.ip_forward,  value: 1}
 ```
+
+#### Run Ansible Playbook
+
+```bash
+ansible-playbook -i inventory swap-sysctl.yaml
+```
+
 
 #### Manual way
 
@@ -268,6 +293,12 @@ sudo sysctl --system
         append: yes
 ```
 
+#### Run Ansible Playbook
+
+```bash
+ansible-playbook -i inventory install-docker.yaml
+```
+
 #### Using Docker script:
 
 ```bash
@@ -289,7 +320,7 @@ curl https://releases.rancher.com/install-docker/20.10.sh | sudo bash -
 1- Modify rancher-images.txt file with your rke version 
 
 ```bash
-rke config --system-images --all --list-version > rancher-images.txt
+rke config --system-images --all --list-version | grep -v time > rancher-images.txt
 ```
 
 2- Run rancher-save-images.sh with the rancher-images.txt image list to create a tarball of all the required images
