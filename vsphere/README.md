@@ -40,8 +40,8 @@ apt install jq
 ```bash
 export GOVC_INSECURE=1
 export GOVC_URL='https://192.168.100.25'
-export GOVC_USERNAME='rke@omidgroup.local'
-export GOVC_PASSWORD='OZP%i/%16D^hlN,EJ(1zK%s$'
+export GOVC_USERNAME=''
+export GOVC_PASSWORD=''
 
 
 govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKM1' -e="disk.enableUUID=1"
