@@ -199,6 +199,11 @@ ignore_docker_version: null
 enable_cri_dockerd: null
 kubernetes_version: "v1.22.5-rancher1-1"
 private_registries: []
+private_registries:
+    - url: registry.omdgrp.ir
+      username: user
+      password: password
+      is_default: true
 ingress:
   provider: ""
   options: {}

@@ -1,5 +1,6 @@
 ## Setup kubernetes cluster with RKE
 
+> Rancher Kubernetes Engine (RKE) is a CNCF-certified Kubernetes distribution that runs entirely within Docker containers. It works on bare-metal and virtualized servers. RKE solves the problem of installation complexity, a common issue in the Kubernetes community. With RKE, the installation and operation of Kubernetes is both simplified and easily automated, and it’s entirely independent of the operating system and platform you’re running. As long as you can run a supported version of Docker, you can deploy and run Kubernetes with RKE.
 
 
 ### Prepare workstation machine
@@ -22,7 +23,18 @@ sudo mv rke_linux-amd64 /usr/local/bin/rke
 rke --version
 ```
 
-3- Generate SSH key pair
+3- Install ansible
+
+```bash
+apt update
+apt install software-properties-common
+add-apt-repository --yes --update ppa:ansible/ansible
+apt install ansible
+
+ansible --version
+```
+
+4- Generate SSH key pair
 
 ```bash
 ssh-keygen

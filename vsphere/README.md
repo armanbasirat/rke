@@ -1,15 +1,64 @@
-## Configure the vSphere cloud provider for k8s cluster
+## Configure vSphere cloud provider and vSphere Container Storage Interfac for k8s cluster
 
 
+### CPI - vSphere Cloud Provider Interface
+
+> The Cloud Provider Interface (CPI) project decouples intelligence of underlying cloud infrastructure features from the core Kubernetes project. The out-of-tree CPI provides Kubernetes with details about the infrastructure on which it has been deployed. When a Kubernetes node registers itself with the Kubernetes API server, it requests additional information about itself from the cloud provider. The CPI provides the node object in the Kubernetes cluster with its IP addresses and zone/region topology. When the node understands the topology and hierarchy of the underlying infrastructure, more intelligent application placement decisions can be made. See the Cloud Provider Interface (CPI) for more details.
+
+The out-of-tree CPI integration connects to vCenter Server and maps information about your infrastructure, such as VMs, disks, and so on, back to the Kubernetes API. Only the cloud-controller-manager pod is required to have a valid config file and credentials to connect to vCenter Server. The following chapters offer more information on how to configure this provider. For now, assume that the cloud-controller-manager pod has access to the config file and credentials that allow access to vCenter Server. The following simplified diagram illustrates which components in your cluster should be connecting to vCenter Server.
+
+### CSI - Container Storage Interface
+
+> The Container Storage Interface (CSI) is a specification designed to enable persistent storage volume management on Container Orchestrators (COs) such as Kubernetes. The specification allows storage systems to integrate with containerized workloads running on Kubernetes. Using CSI, storage providers, such as VMware, can write and deploy plugins for storage systems in Kubernetes without a need to modify any core Kubernetes code.
+
+CSI allows volume plugins to be installed on Kubernetes clusters as extensions. Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users can use the CSI to provision, attach, mount, and format the volumes exposed by the CSI driver. For vSphere, the CSI driver is csi.vsphere.vmware.com.
 
 
 ### Prerequisites
 
-1- Install VMwareTools
 
-2- Set disk.EnableUUID=1 on all nodes
+1- vSphere requirements 
+  (vSphere 6.7U3 or later)
 
-3- Upgrade Virtual Machine Hardware
+2- Install VMwareTools
+
+3- Install govc
+
+```bash
+curl -L -o - "https://github.com/vmware/govmomi/releases/latest/download/govc_$(uname -s)_$(uname -m).tar.gz" | tar -C /usr/local/bin -xvzf - govc
+
+```
+
+4- Install jq
+
+```bash
+apt install jq
+```
+
+5- Set disk.EnableUUID=1 on all nodes
+
+```bash
+export GOVC_INSECURE=1
+export GOVC_URL='https://192.168.100.25'
+export GOVC_USERNAME='rke@omidgroup.local'
+export GOVC_PASSWORD='OZP%i/%16D^hlN,EJ(1zK%s$'
+
+
+govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKM1' -e="disk.enableUUID=1"
+govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKM2' -e="disk.enableUUID=1"
+govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKW1' -e="disk.enableUUID=1"
+govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKW2' -e="disk.enableUUID=1"
+
+```
+
+6- kubectl patch node
+
+```bash
+cd rke/vsphere
+./govc
+```
+
+7- Upgrade Virtual Machine Hardware
    (VM Hardware should be at version 15 or higher)
 
 
@@ -76,8 +125,8 @@ stringData:
 
 ```bash
 
-kubectl create -f cpi-engineering-secret.yaml
-kubectl get secret cpi-engineering-secret --namespace=kube-system
+kubectl create -f cpi-secret.yaml
+kubectl get secret cpi-secret --namespace=kube-system
 
 ```
 
@@ -85,8 +134,10 @@ kubectl get secret cpi-engineering-secret --namespace=kube-system
 
 ```bash
 
-kubectl taint nodes k8s-master-1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
-kubectl taint nodes k8s-worker-1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
+kubectl taint nodes rkm1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
+kubectl taint nodes rkm2 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
+kubectl taint nodes rkw1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
+kubectl taint nodes rkw2 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
 kubectl describe nodes | egrep "Taints:|Name:"
 
 ```
@@ -120,7 +171,7 @@ kubectl describe nodes | egrep "Taints:|Name:"
 
 ```
 
-## Install vSphere Container Storage Interface Driver
+## Install vSphere Container Storage Interface 
 
 
 1- Check that all nodes are tainted
@@ -128,7 +179,7 @@ kubectl describe nodes | egrep "Taints:|Name:"
 
 ```bash
 
-kubectl taint nodes k8s-master-1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
+kubectl taint nodes rkm1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
 kubectl taint nodes k8s-worker-1 node.cloudprovider.kubernetes.io/uninitialized=true:NoSchedule
 kubectl describe nodes | egrep "Taints:|Name:"
 
@@ -213,7 +264,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-d
 
 ```bash
 
-kubectl taint nodes k8s-master-1 node-role.kubernetes.io/master=:NoSchedule
+kubectl taint nodes rkm1 node-role.kubernetes.io/master=:NoSchedule
 kubectl describe nodes | egrep "Taints:|Name:"
 
 ```
@@ -259,6 +310,7 @@ rm csi-vsphere.conf
 ```bash
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/v2.5.1/manifests/vanilla/vsphere-csi-driver.yaml
+
 kubectl get deployment --namespace=vmware-system-csi
 kubectl describe csidrivers
 kubectl get CSINode
@@ -269,6 +321,14 @@ kubectl get CSINode
 
 ### References
 
+
+Cloud Provider Interface (CPI)
+- https://github.com/kubernetes/cloud-provider-vsphere/blob/master/docs/book/cloud_provider_interface.md
+
+Container Storage Interface (CSI)
+- https://github.com/container-storage-interface/spec/blob/master/spec.md
+
+
 - https://cloud-provider-vsphere.sigs.k8s.io/tutorials/kubernetes-on-vsphere-with-kubeadm.html
-- https://rancher.com/products/rke
-- https://github.com/rancher/rke
+
+- https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/index.html
