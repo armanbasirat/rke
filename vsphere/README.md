@@ -264,7 +264,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-d
 
 ```bash
 
-kubectl taint nodes rkm1 node-role.kubernetes.io/master=:NoSchedule
+kubectl taint nodes rkm1 node-role.kubernetes.io/controlplane=:NoSchedule
 kubectl describe nodes | egrep "Taints:|Name:"
 
 ```
@@ -287,7 +287,7 @@ ips = "*"
 permissions = "READ_WRITE"
 rootsquash = false
 
-[VirtualCenter "vcenter.omidgroup.local"]
+[VirtualCenter "192.168.100.25"]
 insecure-flag = "true"
 user = ""
 password = ""
