@@ -329,7 +329,7 @@ kubectl get CSINode
 - https://github.com/container-storage-interface/spec/blob/master/spec.md
 
 
-#### 
+#### Other docs
 - https://cloud-provider-vsphere.sigs.k8s.io/tutorials/kubernetes-on-vsphere-with-kubeadm.html
 
 - https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/index.html
