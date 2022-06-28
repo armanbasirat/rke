@@ -69,7 +69,7 @@ D[<br>rkw1<br><br>ip: 192.168.112.13<br>role: worker<br><br><br><br>-kubelet<br>
 ```
 ```mermaid
 graph TD
-E[<br>workstation machine<br><br><br><br>-rke<br>-kubectl<br><br>]
+E[<br>workstation machine<br><br><br><br>-rke<br>-kubectl<br>-ansible<br><br><br>]
 ```
 
 
