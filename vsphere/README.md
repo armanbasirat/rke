@@ -198,8 +198,8 @@ metadata:
   namespace: kube-system
   # NOTE: this is just an example configuration, update with real values based on your environment
 stringData:
-  10.185.0.89.username: "Administrator@vsphere.local"
-  10.185.0.89.password: "Admin!23"
+  172.16.30.100.username: "vcenter-user"
+  172.16.30.100.password: "vcenter-pass"
 ---
 apiVersion: v1
 kind: ConfigMap
