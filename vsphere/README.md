@@ -44,10 +44,10 @@ export GOVC_USERNAME=''
 export GOVC_PASSWORD=''
 
 
-govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKM1' -e="disk.enableUUID=1"
-govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKM2' -e="disk.enableUUID=1"
-govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKW1' -e="disk.enableUUID=1"
-govc vm.change -vm '/Omid Datacenter/vm/KUBE/RKW2' -e="disk.enableUUID=1"
+govc vm.change -vm '/Dev Datacenter/vm/KUBE/RKM1' -e="disk.enableUUID=1"
+govc vm.change -vm '/Dev Datacenter/vm/KUBE/RKM2' -e="disk.enableUUID=1"
+govc vm.change -vm '/Dev Datacenter/vm/KUBE/RKW1' -e="disk.enableUUID=1"
+govc vm.change -vm '/Dev Datacenter/vm/KUBE/RKW2' -e="disk.enableUUID=1"
 
 ```
 
