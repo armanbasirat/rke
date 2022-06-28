@@ -348,7 +348,7 @@ docker login registry.omdgrp.ir
 4- Use rancher-load-images.sh to extract, tag and push rancher-images.txt and rancher-images.tar.gz to your private registry
 
 ```bash
-./rancher-load-images.sh --image-list ./rancher-images.txt --registry registry.omdgrp.ir
+./rancher-load-images.sh --image-list ./rancher-images.txt --registry registry.yourdomain
 ```
 
 
