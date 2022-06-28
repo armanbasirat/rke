@@ -342,13 +342,13 @@ rke config --system-images --all --list-version | grep -v time > rancher-images.
 3- Log into your private registry if required
 
 ```bash
-docker login registry.omdgrp.ir
+docker login "private registry address"
 ```
 
 4- Use rancher-load-images.sh to extract, tag and push rancher-images.txt and rancher-images.tar.gz to your private registry
 
 ```bash
-./rancher-load-images.sh --image-list ./rancher-images.txt --registry registry.yourdomain
+./rancher-load-images.sh --image-list ./rancher-images.txt --registry "private registry address"
 ```
 
 
