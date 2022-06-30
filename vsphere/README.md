@@ -8,7 +8,7 @@
 
 2- Install VMwareTools
 
-3- Install govc
+3- Install govc on ypur workstation
 
 ```bash
 curl -L -o - "https://github.com/vmware/govmomi/releases/latest/download/govc_$(uname -s)_$(uname -m).tar.gz" | tar -C /usr/local/bin -xvzf - govc
