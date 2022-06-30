@@ -1,4 +1,4 @@
-## Deploy rancher to the kubernetes cluster
+## Deploy rancher to k8s cluster
 
 1- Add the Helm chart repository
 
