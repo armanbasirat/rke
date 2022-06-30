@@ -55,7 +55,7 @@ ssh-keygen
 #### Nodes hostname and IP address
 
 - rkm1 (192.168.112.10)
-- rkm1 (192.168.112.11)
+- rkm2 (192.168.112.11)
 - rkw1 (192.168.112.12)
 - rkw2 (192.168.112.13)
 
@@ -63,9 +63,9 @@ ssh-keygen
 ```mermaid
 graph TD
 A[<br>rkm1<br><br>ip: 192.168.112.10<br>role: control plane, etcd<br><br><br><br>-api-server<br>-etcd<br>-controller-manager<br>-scheduler<br>-kubelet<br>-kube-proxy<br>-container runtime<br><br>]
-B[<br>rkm1<br><br>ip: 192.168.112.11<br>role: control plane, etcd<br><br><br><br>-api-server<br>-etcd<br>-controller-manager<br>-scheduler<br>-kubelet<br>-kube-proxy<br>-container runtime<br><br>]
+B[<br>rkm2<br><br>ip: 192.168.112.11<br>role: control plane, etcd<br><br><br><br>-api-server<br>-etcd<br>-controller-manager<br>-scheduler<br>-kubelet<br>-kube-proxy<br>-container runtime<br><br>]
 C[<br>rkw1<br><br>ip: 192.168.112.12<br>role: worker<br><br><br><br>-kubelet<br>-kube-proxy<br>-container runtime<br><br><br><br><br><br>]
-D[<br>rkw1<br><br>ip: 192.168.112.13<br>role: worker<br><br><br><br>-kubelet<br>-kube-proxy<br>-container runtime<br><br><br><br><br><br>]
+D[<br>rkw2<br><br>ip: 192.168.112.13<br>role: worker<br><br><br><br>-kubelet<br>-kube-proxy<br>-container runtime<br><br><br><br><br><br>]
 ```
 ```mermaid
 graph TD
