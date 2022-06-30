@@ -1,4 +1,4 @@
-## Setup kubernetes cluster with RKE
+## Deploy rancher to the kubernetes cluster
 
 1- Add the Helm chart repository
 
@@ -41,7 +41,7 @@ helm install rancher rancher-latest/rancher \
   --set hostname=rancher.my.org \
   --set bootstrapPassword=admin \
   --set ingress.tls.source=letsEncrypt \
-  --set letsEncrypt.email=a.basirat@omid.ir \
+  --set letsEncrypt.email='' \
   --set letsEncrypt.ingress.class=nginx
 ```
 
